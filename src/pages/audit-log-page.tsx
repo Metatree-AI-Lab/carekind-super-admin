@@ -12,9 +12,21 @@ import { queryKeys } from "../app/query-client.ts";
 const PAGE_LIMIT = 50;
 
 const COLUMNS: readonly TableColumn<AuditEvent>[] = [
-	{ key: "time", header: "Time", render: (event) => formatDateTimeAu(event.occurredAt) },
+	{
+		key: "time",
+		header: "Time",
+		render: (event) => (
+			<time className="sa-audit-time" dateTime={event.occurredAt}>
+				{formatDateTimeAu(event.occurredAt)
+					.split(" ")
+					.map((part) => (
+						<span key={part}>{part}</span>
+					))}
+			</time>
+		),
+	},
 	{ key: "actor", header: "Actor", render: (event) => `${event.actorType} · ${event.actorId ?? "system"}` },
-	{ key: "action", header: "Action", render: (event) => <code>{event.action}</code> },
+	{ key: "action", header: "Action", render: (event) => <code className="sa-audit-action">{event.action}</code> },
 	{
 		key: "outcome",
 		header: "Outcome",
@@ -38,8 +50,9 @@ export function AuditLogPage(): ReactElement {
 	return (
 		<div className="sa-stack">
 			<PageHeader
+				artwork="notes"
 				title="Audit log"
-				description="Who did what, and when, across the platform. Entries can't be edited or deleted. Times are Melbourne time."
+				description="A read-only record of platform activity. Times are Melbourne time."
 			/>
 			<DataTable
 				caption="Audit events, newest first"

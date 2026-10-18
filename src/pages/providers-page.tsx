@@ -87,8 +87,9 @@ export function ProvidersPage(): ReactElement {
 	return (
 		<div className="sa-stack">
 			<PageHeader
+				artwork="connections"
 				title="Providers"
-				description="Every aged care provider organisation on careKind. Resident information is never shown here."
+				description="Manage provider organisations and their facilities."
 				actions={createButton}
 			/>
 			<DataTable
@@ -102,8 +103,7 @@ export function ProvidersPage(): ReactElement {
 				onSortChange={setSort}
 				filters={
 					<TextInput
-						label="Search by provider name"
-						isLabelHidden
+						label="Find a provider"
 						type="search"
 						placeholder="Search by provider name"
 						value={nameFilter}

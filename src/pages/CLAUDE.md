@@ -32,3 +32,14 @@ Feature flags、Owner 邀请、暂停 / 恢复、Unit 代建、审批队列。
 - Owner: Lightman · Status: Local revision · Last reviewed: 18/10/2026
 - `LoginPage(): ReactElement`：居中内部登录表单；保留 schema 校验、super-admin audience 和成功跳转，不新增权限。
 - 认证表单只设一个提交入口；控件复用 shared。截图与限制见 meta repo `06-app-development/design/login-review-2026-10-18.md`。
+
+## 后台视觉统一（18/10/2026）
+
+Owner: Lightman · Status: Local revision · Last reviewed: 18/10/2026
+
+登录后 Providers、Overview、Facilities、New provider、Audit log、404 共用工作层标题和间距。深层页面使用 Breadcrumb；新建表单为说明 + Card，仍只有一个 submit。`OverviewTab` 展示 API 返回计数，不推算结果。手机表格由共享 Table / DataTable 回流。
+
+## 图片与动效（18/10/2026）
+Owner: Lightman · Status: Local revision · Last reviewed: 18/10/2026
+
+LoginPage 增加品牌插画面板，手机为紧凑图文条；Providers / Detail / New provider / Audit log / 404 的 PageHeader 传入插画主题。仅视觉变化，不变更认证、权限、数据或提交动作。
