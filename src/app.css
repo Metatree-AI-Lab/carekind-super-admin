@@ -1,0 +1,152 @@
+/*
+ * Super Admin 页面布局（只做排版间距，不定义颜色和组件）。
+ * 组件样式全部来自 @carekind/shared/styles/components.css（ck- 类）；这里只用 tokens.css 的变量。
+ */
+
+body {
+	margin: 0;
+	background: var(--color-canvas);
+	color: var(--color-ink);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-body);
+}
+
+.sa-stack {
+	display: grid;
+	gap: var(--space-5);
+}
+
+.sa-stack--tight {
+	display: grid;
+	gap: var(--space-3);
+}
+
+.sa-form {
+	display: grid;
+	gap: var(--space-4);
+	max-width: var(--size-dialog-md);
+}
+
+.sa-columns {
+	display: grid;
+	gap: var(--space-5);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-dialog-sm)), 1fr));
+	align-items: start;
+}
+
+.sa-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+.sa-details {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: var(--space-2) var(--space-5);
+	margin: 0;
+}
+
+.sa-details dt {
+	color: var(--color-ink-soft);
+}
+
+.sa-details dd {
+	margin: 0;
+}
+
+/* 侧栏品牌区：标准 Logo（最小 160px）+ "Super Admin" 标签；上下留出 Logo 半个高度的净空（ADR-0003） */
+.sa-brand {
+	display: grid;
+	justify-items: start;
+	gap: var(--space-2);
+	padding: var(--space-3) 0;
+}
+
+/* 内部登录：白色连续画布、独立品牌栏、居中工作表单；控件沿用 shared。 */
+.sa-login {
+	min-height: 100svh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	box-sizing: border-box;
+	padding-inline: clamp(var(--space-5), 5vw, var(--space-8));
+}
+
+.sa-login-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-4);
+	padding-block: var(--space-6);
+	border-bottom: 1px solid var(--color-line);
+}
+
+.sa-login-logo {
+	display: block;
+	width: calc(var(--space-9) + var(--space-8) + var(--space-4));
+	height: auto;
+}
+
+.sa-login-main {
+	display: grid;
+	place-items: center;
+	padding-block: var(--space-8);
+}
+
+.sa-login-panel {
+	width: 100%;
+	max-width: var(--size-dialog-sm);
+	min-width: 0;
+}
+
+.sa-login-intro {
+	margin-bottom: var(--space-6);
+}
+
+.sa-login-intro p {
+	margin: 0;
+	line-height: var(--font-leading-body);
+}
+
+.sa-login-intro h1 {
+	font-size: var(--font-size-heading);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--font-leading-heading);
+	margin: var(--space-3) 0 var(--space-4);
+}
+
+.sa-login-card {
+	display: grid;
+	gap: var(--space-5);
+}
+
+.sa-login-submit {
+	width: 100%;
+	margin-top: var(--space-2);
+	justify-content: space-between;
+}
+
+.sa-login-access {
+	margin: var(--space-5) 0 0;
+	font-size: var(--font-size-caption);
+	line-height: var(--font-leading-body);
+}
+
+.sa-login-footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: var(--space-3) var(--space-5);
+	padding-block: var(--space-5);
+	border-top: 1px solid var(--color-line);
+	color: var(--color-ink-soft);
+	font-size: var(--font-size-caption);
+	line-height: var(--font-leading-body);
+}
+
+.sa-muted {
+	color: var(--color-ink-soft);
+	font-size: var(--font-size-caption);
+}
