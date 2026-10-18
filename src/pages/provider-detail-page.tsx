@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import type { EndpointOutput } from "@carekind/shared/api-client";
 import type { superAdminEndpoints } from "@carekind/shared/contracts";
 import { formatDateAu } from "@carekind/shared/format";
@@ -41,8 +41,8 @@ function OverviewTab({ provider }: { provider: ProviderSummary }): ReactElement 
 					<dd>{formatDateAu(provider.updatedAt)}</dd>
 				</dl>
 			</Card>
-			<Card title="Counts">
-				<dl className="sa-details">
+			<Card title="Workspace totals">
+				<dl className="sa-counts">
 					<dt>Facilities</dt>
 					<dd>{provider.facilityCount}</dd>
 					<dt>Staff accounts</dt>
@@ -70,6 +70,17 @@ export function ProviderDetailPage(): ReactElement {
 	return (
 		<div className="sa-stack">
 			<PageHeader
+				artwork="care"
+				breadcrumb={
+					<nav className="ck-breadcrumb" aria-label="Breadcrumb">
+						<ol>
+							<li>
+								<Link to="/providers">Providers</Link>
+							</li>
+							<li aria-current="page">Provider details</li>
+						</ol>
+					</nav>
+				}
 				title={provider.data.legalName}
 				description={provider.data.isDemo ? "Fictional demo provider." : undefined}
 				meta={<ProviderStatusTag status={provider.data.status} />}

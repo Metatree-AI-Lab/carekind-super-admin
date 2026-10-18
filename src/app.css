@@ -13,7 +13,7 @@ body {
 
 .sa-stack {
 	display: grid;
-	gap: var(--space-5);
+	gap: var(--space-6);
 }
 
 .sa-stack--tight {
@@ -23,8 +23,8 @@ body {
 
 .sa-form {
 	display: grid;
-	gap: var(--space-4);
-	max-width: var(--size-dialog-md);
+	gap: var(--space-5);
+	max-width: var(--size-field-max);
 }
 
 .sa-columns {
@@ -43,8 +43,8 @@ body {
 
 .sa-details {
 	display: grid;
-	grid-template-columns: max-content 1fr;
-	gap: var(--space-2) var(--space-5);
+	grid-template-columns: minmax(0, 1fr);
+	gap: var(--space-2);
 	margin: 0;
 }
 
@@ -53,7 +53,8 @@ body {
 }
 
 .sa-details dd {
-	margin: 0;
+	margin: 0 0 var(--space-4);
+	overflow-wrap: anywhere;
 }
 
 /* 侧栏品牌区：标准 Logo（最小 160px）+ "Super Admin" 标签；上下留出 Logo 半个高度的净空（ADR-0003） */
@@ -91,8 +92,14 @@ body {
 
 .sa-login-main {
 	display: grid;
-	place-items: center;
-	padding-block: var(--space-8);
+	grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+	align-items: center;
+	justify-items: center;
+	gap: var(--space-8);
+	max-width: var(--size-container);
+	width: 100%;
+	margin-inline: auto;
+	padding-block: var(--space-7);
 }
 
 .sa-login-panel {
@@ -149,4 +156,112 @@ body {
 .sa-muted {
 	color: var(--color-ink-soft);
 	font-size: var(--font-size-caption);
+}
+
+/* 同一表单的说明与输入分区，共用一个提交入口；小屏自然回流。 */
+.sa-form-layout {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-dialog-sm)), 1fr));
+	gap: var(--space-6);
+	align-items: start;
+}
+
+.sa-form-intro h2 {
+	margin: 0 0 var(--space-3);
+	font-size: var(--font-size-title);
+	font-weight: var(--font-weight-medium);
+}
+
+.sa-form-intro p {
+	max-width: var(--size-dialog-sm);
+	line-height: var(--font-leading-body);
+}
+
+.sa-counts {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: var(--space-5);
+	margin-block: var(--space-5);
+}
+
+.sa-counts dt {
+	color: var(--color-ink-soft);
+}
+.sa-counts dd {
+	margin: 0;
+	font-size: var(--font-size-heading);
+	font-weight: var(--font-weight-medium);
+	font-variant-numeric: tabular-nums;
+}
+
+.sa-audit-action {
+	white-space: nowrap;
+}
+
+.sa-audit-time {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 var(--space-2);
+}
+.sa-audit-time span {
+	white-space: nowrap;
+}
+
+.sa-login-visual {
+	width: 100%;
+	position: relative;
+	align-self: stretch;
+	display: grid;
+	align-content: center;
+	padding-block: var(--space-5);
+}
+
+.sa-login-visual-heading {
+	position: relative;
+	z-index: 1;
+}
+.sa-login-visual-heading h2 {
+	font-family: var(--font-family-display);
+	font-size: var(--font-size-display-sm);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--font-leading-tight);
+	letter-spacing: var(--font-tracking-display);
+	margin: var(--space-3) 0 var(--space-5);
+}
+.sa-login-visual > .ck-workspace-art {
+	max-width: var(--size-field-max);
+}
+.sa-login-visual-caption {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: var(--space-3);
+	max-width: var(--size-field-max);
+	margin-top: var(--space-4);
+	font-size: var(--font-size-caption);
+	color: var(--color-ink-soft);
+}
+@media (max-width: 900px) {
+	.sa-login-main {
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--space-6);
+		padding-block: var(--space-6);
+	}
+	.sa-login-visual {
+		max-width: var(--size-dialog-sm);
+		grid-template-columns: minmax(0, 1fr) var(--space-9);
+		align-items: center;
+		gap: var(--space-4);
+		padding: 0;
+	}
+	.sa-login-visual-heading h2 {
+		font-size: var(--font-size-heading);
+		margin: var(--space-2) 0 0;
+	}
+	.sa-login-visual > .ck-workspace-art {
+		grid-column: 2;
+		grid-row: 1;
+	}
+	.sa-login-visual-caption { display: none; }
 }

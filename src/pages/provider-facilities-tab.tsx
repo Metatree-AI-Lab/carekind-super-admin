@@ -12,6 +12,7 @@ import {
 	Select,
 	Spinner,
 	Table,
+	Tag,
 	TextInput,
 	type TableColumn,
 } from "@carekind/shared/ui";
@@ -51,7 +52,15 @@ const STATE_OPTIONS = [
 const COLUMNS: readonly TableColumn<FacilityRow>[] = [
 	{ key: "name", header: "Facility", render: (row) => row.name },
 	{ key: "state", header: "State", render: (row) => row.address.state },
-	{ key: "status", header: "Status", render: (row) => row.status },
+	{
+		key: "status",
+		header: "Status",
+		render: (row) => (
+			<Tag hasDot variant={row.status === "Active" ? "success" : "neutral"}>
+				{row.status}
+			</Tag>
+		),
+	},
 	{ key: "rulePack", header: "Rule pack", render: (row) => row.rulePackId ?? "Not bound yet" },
 	{ key: "goLive", header: "Go-live checklist", render: (row) => `${row.goLiveCompleted} of ${row.goLiveTotal}` },
 	{ key: "beds", header: "Beds", isNumeric: true, render: (row) => row.operationalBeds },
@@ -194,9 +203,16 @@ export function ProviderFacilitiesTab({ providerId }: { providerId: string }): R
 	return (
 		<div className="sa-stack">
 			<FacilityList providerId={providerId} />
-			<Card title="Add a facility">
-				<CreateFacilityForm providerId={providerId} />
-			</Card>
+			<div className="sa-form-layout">
+				<aside className="sa-form-intro">
+					<h2>Add a facility</h2>
+					<p>Set up an aged care location for this provider.</p>
+					<p className="sa-muted">The state determines the initial rule pack.</p>
+				</aside>
+				<Card title="Facility details">
+					<CreateFacilityForm providerId={providerId} />
+				</Card>
+			</div>
 		</div>
 	);
 }

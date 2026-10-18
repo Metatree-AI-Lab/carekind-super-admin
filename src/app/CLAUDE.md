@@ -26,3 +26,14 @@
 
 ## 不要做
 - 不要做 MFA；不要把 token 放进 JS 可读的位置。
+
+## 后台视觉统一（18/10/2026）
+
+Owner: Lightman · Status: Local revision · Last reviewed: 18/10/2026
+
+`SuperAdminShell(): ReactElement` 保留权限导航与不可关闭的 Demo 横幅；导航带图标，完整权限组放侧栏 footer，顶栏显示姓名与简短职能。验收见 meta repo design/admin-review-2026-10-18.md。
+
+## 图片与动效（18/10/2026）
+Owner: Lightman · Status: Local revision · Last reviewed: 18/10/2026
+
+SuperAdminShell 的 Outlet 外层按 pathname 设置 key，触发一次页面进入动画；侧栏和账户区域保持，不新增业务动作。

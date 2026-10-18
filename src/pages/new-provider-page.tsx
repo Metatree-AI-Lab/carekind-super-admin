@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactElement } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { superAdminEndpoints } from "@carekind/shared/contracts";
 import { Button, Card, PageHeader, TextInput, useToast } from "@carekind/shared/ui";
 import { superAdminApi } from "../app/api.ts";
@@ -54,50 +54,68 @@ export function NewProviderPage(): ReactElement {
 	return (
 		<div className="sa-stack">
 			<PageHeader
+				artwork="connections"
+				breadcrumb={
+					<nav className="ck-breadcrumb" aria-label="Breadcrumb">
+						<ol>
+							<li>
+								<Link to="/providers">Providers</Link>
+							</li>
+							<li aria-current="page">New provider</li>
+						</ol>
+					</nav>
+				}
 				title="New provider"
-				description="The provider starts as Draft. You can add facilities and units after it is created."
+				description="Create an organisation first, then add its facilities."
 			/>
-			<Card>
-				<form className="sa-form" onSubmit={handleSubmit} noValidate>
-					{createProvider.isError ? (
-						<ErrorAlert error={createProvider.error} title="Couldn't create the provider" />
-					) : null}
-					<TextInput
-						label="Legal name"
-						value={legalName}
-						error={fieldErrors.legalName}
-						onChange={(event) => setLegalName(event.target.value)}
-					/>
-					<TextInput
-						label="Trading name"
-						isOptional
-						value={tradingName}
-						error={fieldErrors.tradingName}
-						onChange={(event) => setTradingName(event.target.value)}
-					/>
-					<TextInput
-						label="ABN"
-						inputMode="numeric"
-						hint="11 digits, for example 12 345 678 901"
-						value={abn}
-						error={fieldErrors.abn}
-						onChange={(event) => setAbn(event.target.value)}
-					/>
-					<div className="sa-actions">
-						<Button
-							type="submit"
-							variant="primary"
-							isLoading={createProvider.isPending}
-							loadingText="Creating…"
-						>
-							Create provider
-						</Button>
-						<Button type="button" variant="text" onClick={() => navigate("/providers")}>
-							Cancel
-						</Button>
-					</div>
-				</form>
-			</Card>
+			<div className="sa-form-layout">
+				<aside className="sa-form-intro">
+					<h2>Organisation details</h2>
+					<p>Use the legal name and ABN registered for this provider.</p>
+					<p className="sa-muted">New providers start as Draft.</p>
+				</aside>
+				<Card>
+					<form className="sa-form" onSubmit={handleSubmit} noValidate>
+						{createProvider.isError ? (
+							<ErrorAlert error={createProvider.error} title="Couldn't create the provider" />
+						) : null}
+						<TextInput
+							label="Legal name"
+							value={legalName}
+							error={fieldErrors.legalName}
+							onChange={(event) => setLegalName(event.target.value)}
+						/>
+						<TextInput
+							label="Trading name"
+							isOptional
+							value={tradingName}
+							error={fieldErrors.tradingName}
+							onChange={(event) => setTradingName(event.target.value)}
+						/>
+						<TextInput
+							label="ABN"
+							inputMode="numeric"
+							hint="11 digits, for example 12 345 678 901"
+							value={abn}
+							error={fieldErrors.abn}
+							onChange={(event) => setAbn(event.target.value)}
+						/>
+						<div className="sa-actions">
+							<Button
+								type="submit"
+								variant="primary"
+								isLoading={createProvider.isPending}
+								loadingText="Creating…"
+							>
+								Create provider
+							</Button>
+							<Button type="button" variant="text" onClick={() => navigate("/providers")}>
+								Cancel
+							</Button>
+						</div>
+					</form>
+				</Card>
+			</div>
 		</div>
 	);
 }

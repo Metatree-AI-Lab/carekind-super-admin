@@ -2,7 +2,7 @@ import { useState, type FormEvent, type ReactElement } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Navigate, useLocation, useNavigate } from "react-router";
 import { authEndpoints } from "@carekind/shared/contracts";
-import { Alert, Button, TextInput } from "@carekind/shared/ui";
+import { Alert, Button, TextInput, WorkspaceArtwork } from "@carekind/shared/ui";
 import logoBlackUrl from "@carekind/shared/brand/carekind-logo-black.svg";
 import { authApi } from "../app/api.ts";
 import { useCurrentUserQuery, type LoginRedirectState } from "../app/auth.tsx";
@@ -56,7 +56,7 @@ export function LoginPage(): ReactElement {
 		login.mutate(parsed.data);
 	}
 
-	// 内部登录以表单为中心；复用正式控件，不引入营销 Hero 或装饰浮卡。
+	// 品牌插画与工作表单分区，复用正式控件，不改变认证流程。
 	return (
 		<div className="sa-login">
 			<header className="sa-login-header">
@@ -64,7 +64,22 @@ export function LoginPage(): ReactElement {
 				<span className="ck-tag">Internal workspace</span>
 			</header>
 			<main className="sa-login-main">
-				<section className="sa-login-panel" aria-labelledby="login-title">
+				<aside className="sa-login-visual" aria-label="careKind brand illustration">
+					<div className="sa-login-visual-heading">
+						<span className="sa-muted">THE CARE BEHIND THE WORK</span>
+						<h2>
+							Thoughtful tools.
+							<br />
+							Human care.
+						</h2>
+					</div>
+					<WorkspaceArtwork kind="care" />
+					<div className="sa-login-visual-caption">
+						<span>careKind</span>
+						<span>Made for the people who care.</span>
+					</div>
+				</aside>
+				<section className="sa-login-panel ck-workspace-enter" aria-labelledby="login-title">
 					<div className="sa-login-intro">
 						<p className="sa-muted">Super Admin</p>
 						<h1 id="login-title">Sign in to your workspace</h1>

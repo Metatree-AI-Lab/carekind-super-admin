@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import type { SuperAdminPermission, SuperAdminPermissionGroup } from "@carekind/shared/schemas";
-import { AppShell, useToast, type NavItem, type ShellBanner } from "@carekind/shared/ui";
+import { AppShell, useToast, type NavItem, type ShellBanner, type IconName } from "@carekind/shared/ui";
 import logoBlackUrl from "@carekind/shared/brand/carekind-logo-black.svg";
 import { LOGIN_PATH, useCurrentUser, useSignOut } from "./auth.tsx";
 import { describeError } from "./errors.tsx";
@@ -23,11 +23,12 @@ interface NavDefinition {
 	href: string;
 	label: string;
 	permission: SuperAdminPermission;
+	icon: IconName;
 }
 
 const NAV_DEFINITIONS: readonly NavDefinition[] = [
-	{ href: "/providers", label: "Providers", permission: "providers.read" },
-	{ href: "/audit-log", label: "Audit log", permission: "audit.read" },
+	{ href: "/providers", label: "Providers", icon: "building", permission: "providers.read" },
+	{ href: "/audit-log", label: "Audit log", icon: "history", permission: "audit.read" },
 ];
 
 const DEMO_BANNER_TEXT = "Demo console — fictional providers only. Nothing here affects real customers.";
@@ -52,7 +53,12 @@ export function SuperAdminShell(): ReactElement {
 	}
 
 	const navItems: NavItem[] = NAV_DEFINITIONS.filter((item) => user.permissions.includes(item.permission)).map(
-		(item) => ({ href: item.href, label: item.label, isCurrent: location.pathname.startsWith(item.href) }),
+		(item) => ({
+			href: item.href,
+			label: item.label,
+			icon: item.icon,
+			isCurrent: location.pathname.startsWith(item.href),
+		}),
 	);
 	const banner: ShellBanner | undefined = user.isDemo
 		? { kind: "demo", text: DEMO_BANNER_TEXT, onExit: handleSignOut }
@@ -65,16 +71,25 @@ export function SuperAdminShell(): ReactElement {
 			brand={
 				<div className="sa-brand">
 					<img src={logoBlackUrl} alt="careKind" width={160} height={36} />
-					<span className="ck-tag">Super Admin</span>
+					<span className="sa-muted">Super Admin</span>
 				</div>
 			}
 			tenantName="careKind platform"
-			navGroups={[{ items: navItems }]}
+			contextLabel="Workspace"
+			navGroups={[{ heading: "Administration", items: navItems }]}
 			onNavigate={(href) => navigate(href)}
-			user={{ name: user.displayName, role: roleText, onSignOut: handleSignOut }}
+			user={{ name: user.displayName, role: "careKind staff", onSignOut: handleSignOut }}
+			footer={
+				<div className="sa-stack--tight">
+					<strong>Your access</strong>
+					<span>{roleText}</span>
+				</div>
+			}
 			banner={banner}
 		>
-			<Outlet />
+			<div className="ck-workspace-enter" key={location.pathname}>
+				<Outlet />
+			</div>
 		</AppShell>
 	);
 }
